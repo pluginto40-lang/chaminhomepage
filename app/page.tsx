@@ -27,12 +27,12 @@ export default async function HomePage() {
         <h2 className="text-xl font-bold text-[#3d2c2c] mb-5">✨ 탄생 스토리</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-pink-light rounded-2xl shadow-sm p-6 text-center">
-            <div className="text-4xl mb-3">🏥</div>
+            <div className="text-4xl mb-3">🌸</div>
             <h3 className="font-bold text-[#3d2c2c] mb-1">태어난 날</h3>
             <p className="text-[#7a5a5a] text-sm">2025년 6월 4일</p>
           </div>
           <div className="bg-mint-light rounded-2xl shadow-sm p-6 text-center">
-            <div className="text-4xl mb-3">⚖️</div>
+            <div className="text-4xl mb-3">👨‍👩‍👧</div>
             <h3 className="font-bold text-[#3d2c2c] mb-1">첫 만남</h3>
             <p className="text-[#7a5a5a] text-sm">엄마 아빠의 보물</p>
           </div>
