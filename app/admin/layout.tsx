@@ -24,6 +24,14 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-[#FFF9F5]">
+      <Link
+        href="/"
+        aria-label="메인 페이지로 돌아가기"
+        title="메인 페이지로 돌아가기"
+        className="fixed right-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-[#FFB5C8]/50 bg-white/90 text-xl shadow-sm transition-colors hover:border-[#FF8FAB] hover:bg-[#FFF0E8]"
+      >
+        🏠
+      </Link>
       {/* 모바일 상단 네비게이션 */}
       <div className="md:hidden bg-white border-b border-[#FFB5C8]/30 px-4 py-3">
         <p className="text-sm font-bold text-[#FF8FAB] mb-2">🌸 관리자 패널</p>

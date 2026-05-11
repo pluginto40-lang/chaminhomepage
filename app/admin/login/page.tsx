@@ -1,6 +1,7 @@
 'use client'
 
 import { createBrowserClient } from '@supabase/ssr'
+import Link from 'next/link'
 import { useState } from 'react'
 
 export default function AdminLoginPage() {
@@ -46,6 +47,14 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen bg-[#FFF9F5] flex items-center justify-center p-4">
+      <Link
+        href="/"
+        aria-label="메인 페이지로 돌아가기"
+        title="메인 페이지로 돌아가기"
+        className="fixed right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-[#FFB5C8]/50 bg-white/90 text-xl shadow-sm transition-colors hover:border-[#FF8FAB] hover:bg-[#FFF0E8]"
+      >
+        🏠
+      </Link>
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🌸</div>
