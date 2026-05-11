@@ -1,11 +1,9 @@
 'use client'
 
 import { createBrowserClient } from '@supabase/ssr'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function AdminLoginPage() {
-  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -21,28 +19,40 @@ export default function AdminLoginPage() {
     setError(null)
     setLoading(true)
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    try {
+      const result = await Promise.race([
+        supabase.auth.signInWithPassword({ email, password }),
+        new Promise<{ error: Error }>((resolve) =>
+          setTimeout(() => resolve({ error: new Error('timeout') }), 15000)
+        ),
+      ])
 
-    if (error) {
-      setError('이메일 또는 비밀번호가 올바르지 않습니다.')
+      if (result.error) {
+        setError(
+          result.error.message === 'timeout'
+            ? 'Supabase 연결이 지연되고 있어요. 프로젝트 URL과 키를 확인해 주세요.'
+            : '이메일 또는 비밀번호가 올바르지 않습니다.'
+        )
+        return
+      }
+
+      window.location.assign('/admin/dashboard')
+    } catch {
+      setError('로그인 중 문제가 발생했어요. 잠시 후 다시 시도해 주세요.')
+    } finally {
       setLoading(false)
-      return
     }
-
-    router.push('/admin/dashboard')
   }
 
   return (
     <div className="min-h-screen bg-[#FFF9F5] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-        {/* 헤더 */}
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🌸</div>
           <h1 className="text-2xl font-bold text-[#3d2c2c]">채민이 홈페이지 관리자</h1>
           <p className="text-sm text-[#3d2c2c]/60 mt-1">관리자 계정으로 로그인하세요</p>
         </div>
 
-        {/* 카드 */}
         <div className="bg-white rounded-2xl shadow-md border border-[#FFB5C8]/30 p-8">
           <form onSubmit={handleLogin} className="flex flex-col gap-5">
             <div>
@@ -90,7 +100,7 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="text-center text-xs text-[#3d2c2c]/40 mt-6">
-          채민아, 사랑해 ❤️
+          채민아, 사랑해 🤍
         </p>
       </div>
     </div>
